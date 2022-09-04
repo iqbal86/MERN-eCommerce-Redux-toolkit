@@ -37,6 +37,7 @@ function LoginScreen() {
       <h1>Sign in</h1>
       {isError && <Message>{message}</Message>}
       {isLoading && <Loader />}
+
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="email">
           <Form.Label>Email Address</Form.Label>
