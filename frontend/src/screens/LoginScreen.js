@@ -11,7 +11,9 @@ function LoginScreen() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const { Loading, Error, user } = useSelector((state) => state.auth)
+  const { isLoading, isError, message, user } = useSelector(
+    (state) => state.auth,
+  )
 
   const location = useLocation()
   const navigate = useNavigate()
@@ -33,8 +35,8 @@ function LoginScreen() {
   return (
     <FormContainer>
       <h1>Sign in</h1>
-      {Error && <Message>{Error}</Message>}
-      {Loading && <Loader />}
+      {isError && <Message>{message}</Message>}
+      {isLoading && <Loader />}
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="email">
           <Form.Label>Email Address</Form.Label>
