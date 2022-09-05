@@ -18,7 +18,7 @@ const authUser = asyncHandler(async (req, res) => {
 
   if (user && (await bcrypt.compare(password, user.password))) {
     res.status(201).json({
-      _id: user.id,
+      _id: user._id,
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
@@ -48,19 +48,15 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new Error('User already exists')
   }
 
-  const salt = await bcrypt.genSalt(10)
-
-  const hashedPassword = await bcrypt.hash(password, salt)
-
   const user = await User.create({
     name,
     email,
-    password: hashedPassword,
+    password,
   })
 
   if (user) {
     res.status(201).json({
-      _id: user.id,
+      _id: user._id,
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
@@ -105,7 +101,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     const updatedUser = await user.save()
 
     res.status(201).json({
-      _id: updatedUser.id,
+      _id: updatedUser._id,
       name: updatedUser.name,
       email: updatedUser.email,
       isAdmin: updatedUser.isAdmin,
