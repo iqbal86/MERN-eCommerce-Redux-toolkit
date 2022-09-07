@@ -4,7 +4,7 @@ import { Form, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { login } from '../features/auth/authSlice'
+import { login, reset } from '../features/auth/authSlice'
 import FormContainer from '../components/FormContainer'
 
 function LoginScreen() {
@@ -25,7 +25,11 @@ function LoginScreen() {
     if (user) {
       navigate(redirect)
     }
-  }, [user, navigate, redirect])
+
+    return () => {
+      dispatch(reset())
+    }
+  }, [user, navigate, redirect, dispatch])
 
   const submitHandler = (e) => {
     e.preventDefault()
