@@ -3,6 +3,7 @@ import cartService from './cartService'
 
 // var cartItems = []
 const cartItems = JSON.parse(localStorage.getItem('cart'))
+const shippingAddress = JSON.parse(localStorage.getItem('shippingAddress'))
 // const total = JSON.parse(localStorage.getItem('total'))
 
 // const qty = JSON.parse(localStorage.getItem('qty'))
@@ -22,10 +23,11 @@ const cartItems = JSON.parse(localStorage.getItem('cart'))
 
 const initialState = {
   cartItems: cartItems ? cartItems : [],
-  isLoading: false,
-  isSuccess: false,
-  isError: false,
-  message: '',
+  shippingAddress: shippingAddress ? shippingAddress : [],
+  // isLoading: false,
+  // isSuccess: false,
+  // isError: false,
+  // message: '',
 }
 
 // export const addToCart = createAsyncThunk(
@@ -169,6 +171,13 @@ export const cartSlice = createSlice({
       localStorage.setItem('cart', JSON.stringify(state.cartItems))
     },
 
+    saveShippingAddress: (state, action) => {
+      state.shippingAddress = action.payload
+      localStorage.setItem(
+        'shippingAddress',
+        JSON.stringify(state.shippingAddress),
+      )
+    },
     //   updateCart: (state, action) => {
     //     const item = action.payload
 
@@ -260,5 +269,9 @@ export const cartSlice = createSlice({
   },
 })
 
-export const { removeFromCart, addToCart } = cartSlice.actions
+export const {
+  removeFromCart,
+  addToCart,
+  saveShippingAddress,
+} = cartSlice.actions
 export default cartSlice.reducer
